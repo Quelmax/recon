@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 import datarules as rules
+import time
 
 df= pd.read_csv('data/modelo_recomendação.csv')
 
@@ -111,7 +112,11 @@ with tab3:
 
             with col2:
                 st.subheader("Ponto de Atenção:")
-                st.write('O Sr. Enrico Oliveira tem seguro de vida há 30 meses. Ele pode cancelar o contrato (possibilidade de churn de 75%). O corretor pode entrar em contato, dar um atendimento especial, saber o que ele quer e evitar o cancelamento.')
+                st.write('O Sr. Enrico Oliveira tem seguro de vida há 30 meses. De acordo com nosso modelo inteligente, ele pode cancelar o contrato (possibilidade de churn de 75%). Você pode entrar em contato, dar um atendimento especial, saber o que ele quer e evitar o cancelamento.')
                 st.subheader("Assistente Icatu")
+                with st.spinner('Estou pensando...'):
+                    time.sleep(3)
+                st.success('Pronto!')
                 st.write("Sou o **Icatúlio**, assistente virtual da Icatu Seguros, venho trazer uma sugestão de abordagem para o cliente Enrico Oliveira:")
                 st.write("Olá, Sr. Enrico. Aqui é o seu corretor de seguros da Icatu. Estou ligando para saber como você está e se você está satisfeito com o seu seguro de vida. Você sabe que o seu seguro é muito importante para garantir a sua tranquilidade e a de sua família, não é mesmo? Você tem seguro de vida há 30 meses e isso mostra que você se preocupa com o seu futuro. Mas eu gostaria de conversar com você sobre algumas vantagens que você pode ter ao continuar com a nossa seguradora. Você sabia que você pode ter descontos progressivos, coberturas adicionais e benefícios exclusivos? Você conhece todas as opções de planos e serviços que nós oferecemos? Você tem alguma dúvida ou sugestão? Eu estou aqui para te ouvir e te ajudar no que for preciso. Eu quero oferecer um atendimento especial para você, pois você é um cliente muito valioso para nós. Por favor, me diga o que você precisa e o que eu posso fazer para te atender melhor. Eu tenho certeza que podemos encontrar uma solução que atenda às suas expectativas e necessidades.")
+                
