@@ -16,8 +16,8 @@ def getRecom(id=879):
 
   cursor.execute(f"SELECT * FROM datathon_04.db_datathon.base_proposta_clientes_unificado WHERE cd_corretor_lider = {id} ")
   result = cursor.fetchall()
-  # for row in result:
-  #   print(row)
+  for row in result:
+    print(row)
 
   return pd.DataFrame(result)
 

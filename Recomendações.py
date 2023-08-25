@@ -1,12 +1,12 @@
 import streamlit as st
 import pandas as pd
-import dbconnection as db
+# import dbconnection as db
 
 
 # Criar DataFrames de exemplo
 data1 = {'Nome': ['Alice', 'Bob', 'Charlie'],
          'Idade': [25, 30, 22]}
-db.getRecom()
+# db.getRecom()
 df1 = pd.DataFrame(data1)
 
 
