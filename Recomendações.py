@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 import datarules as rules
 
-df= pd.read_csv('data\modelo_recomendação.csv')
+df= pd.read_csv('data/modelo_recomendação.csv')
 
 df1 = rules.getCrossSell(df)
 df2 = rules.getUpSell(df)
