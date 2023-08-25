@@ -1,3 +1,6 @@
 .streamlit/secrets.toml
 __pycache__/dbconnection.cpython-39.pyc
 
+__pycache__/datarules.cpython-39.pyc
+__pycache__/dbconnection.cpython-39.pyc
+data/dump

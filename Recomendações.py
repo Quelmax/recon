@@ -1,27 +1,17 @@
 import streamlit as st
 import pandas as pd
-# import dbconnection as db
+import datarules as rules
 
+df= pd.read_csv('data\modelo_recomendação.csv')
 
-# Criar DataFrames de exemplo
-data1 = {'Nome': ['Alice', 'Bob', 'Charlie'],
-         'Idade': [25, 30, 22]}
-# db.getRecom()
-df1 = pd.DataFrame(data1)
+df1 = rules.getCrossSell(df)
+df2 = rules.getUpSell(df)
 
-
-data2 = {'Cidade': ['Nova York', 'Los Angeles', 'Chicago'],
-         'População': [8500000, 3900000, 2700000]}
-df2 = pd.DataFrame(data2)
-
-data3 = {'Produto': ['Maçã', 'Banana', 'Laranja'],
-         'Preço': [1.0, 0.5, 0.75]}
-df3 = pd.DataFrame(data3)
-
-
-# Função para mostrar detalhes do pop-up
-def show_popup(row):
-    st.write(f"Detalhes da linha selecionada: {row}")
+def listProducts(row):
+    col_produtos = [col for col in row.index if 'produto' in col.lower()]
+    produtos = [col for col in col_produtos if pd.notnull(row[col])]
+    return row[produtos]
+    
 
 # Layout das abas
 tab1, tab2, tab3  = st.tabs(['Cross-Sell', 'Up-Sell', 'Retenção e Relacionamento'])
@@ -32,22 +22,50 @@ tab1, tab2, tab3  = st.tabs(['Cross-Sell', 'Up-Sell', 'Retenção e Relacionamen
 with tab1:
     st.write("Esses clientes da sua carteira podem adquirir produtos de outra linha de négocio:")
     # st.write(df1)
+
     for index, row in df1.iterrows():
-        row_expander = st.expander(f" {index} - {row['Nome']}", False)
+
+        row_expander = st.expander(f" {index} - {row['nome']}")
         
         with row_expander:
-            st.write("Detalhes da linha:", index)
-            st.write("Nome:", row['Nome'])
-            st.write("Idade:", row['Idade'])
-            # st.write("Cidade:", row['Cidade'])
-    
+            col1, col2 = st.columns(2)
+            with col1:
+                st.subheader('Informações do Cliente:')
+                st.write("**Profissão**:", row['profissão'])
+                st.write("**Idade**:", row['idade'])
+                st.write("**Telefone :telephone:**:", row['telefone'])
+                st.subheader('Produtos adquiridos:')
+                st.dataframe(listProducts(row))
 
+
+            with col2:
+                st.subheader("Produto recomendado:")
+                st.write(row['crossell'])
+
+      
 
 with tab2:
     st.write("Esses clientes da sua carteira podem realizar um upgrade em produtos que já possuem:")
-    st.write(df2)
+    # st.write(df2)
+    for index, row in df2.iterrows():
+        row_expander = st.expander(f" {index} - {row['nome']}", False)
+        
+        with row_expander:
+            col1, col2 = st.columns(2)
+            with col1:
+                st.subheader('Informações do Cliente:')
+                st.write("Profissão:", row['profissão'])
+                st.write("Idade:", row['idade'])
+                st.write("Telefone:", row['telefone'])
+                st.subheader('Produtos adquiridos:')
+                st.dataframe(listProducts(row))
 
-with tab3:
-    st.write("Esses clientes estão com indicativo de possível saída, que tal entrar em contato com eles?")
-    st.write(df3)
+
+            with col2:
+                st.subheader("Produto recomendado:")
+                st.write(row['upsell'])
+
+# with tab3:
+#     st.write("Esses clientes estão com indicativo de possível saída, que tal entrar em contato com eles?")
+#     st.write(df3)
 
