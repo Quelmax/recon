@@ -9,7 +9,7 @@ openai.api_version = "2023-03-15-preview"
     
 st.title("💬 Icatu Chat") 
 if "messages" not in st.session_state:
-    st.session_state["messages"] = [{"role": "assistant", "content": "Sou seu assitente de recomendações Icatu, como posso te ajudar?"}]
+    st.session_state["messages"] = [{"role": "assistant", "content": "Me chamo Icatúlio, seu assitente de recomendações Icatu, como posso te ajudar?"}]
 
 for msg in st.session_state.messages:
     st.chat_message(msg["role"]).write(msg["content"])
@@ -28,5 +28,5 @@ if prompt := st.chat_input():
 
 with st.expander("Sugestões de frase"):
     st.write("""
-        Me gere um pitch para vender seguro de vida para alguém que já possui um produto de previdência e possui ao menos um filho.
+        Elabore um pitch de venda do seguro [NOME DO SEGURO] para o cliente de nome [NOME DO CLIENTE], ciente de que ele possui as seguintes características: [CASADO, SE TEM FILHOS, PROFISSÃO...].
     """) 
